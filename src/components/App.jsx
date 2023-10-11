@@ -4,27 +4,33 @@ import Filter from './Filter/Filter';
 import Form from './Form/Form';
 import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+
 
 const App = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(state => state.phoneBook.contacts)
+  const filter = useSelector(state => state.phoneBook.filter)
+  // const [contacts, setContacts] = useState([]);
+  // const [filter, setFilter] = useState('');
+
+
 
   const mapState = {
-    filter: setFilter,
+    // filter: setFilter,
   };
 
-  useEffect(()=>{
-    const contactsFromLocal = JSON.parse(window.localStorage.getItem("contacts"))
-        if (contactsFromLocal?.length) {
-          setContacts(contactsFromLocal)
-        }
-  },[])
+  // useEffect(()=>{
+  //   const contactsFromLocal = JSON.parse(window.localStorage.getItem("contacts"))
+  //       if (contactsFromLocal?.length) {
+  //         setContacts(contactsFromLocal)
+  //       }
+  // },[])
 
-  useEffect((prev)=>{
-    if (prev !== contacts) {
-            window.localStorage.setItem("contacts", JSON.stringify(contacts))
-          }
-  },[contacts])
+  // useEffect((prev)=>{
+  //   if (prev !== contacts) {
+  //           window.localStorage.setItem("contacts", JSON.stringify(contacts))
+  //         }
+  // },[contacts])
 
   const handleChangeInput = e => {
     const { name, value } = e.target;
@@ -35,7 +41,7 @@ const App = () => {
     const contactExists = contacts.some(contact => contact.name === name);
     if (name && number) {
       if (!contactExists) {
-        setContacts(prev => [...prev, { id: nanoid(), name, number }]);
+        // setContacts(prev => [...prev, { id: nanoid(), name, number }]);
         toast.success(`${name} was added to contacts`);
       } else {
         toast.error(`${name} is already exist in contacts`);
@@ -44,7 +50,7 @@ const App = () => {
   };
 
   const handleDeleteContact = id => {
-    setContacts(prev => prev.filter(contact => contact.id !== id));
+    // setContacts(prev => prev.filter(contact => contact.id !== id));
   };
 
   const filteredContacts = () => {

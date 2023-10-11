@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const ContactsList = ({ contacts, deleteContact }) => {
+  const contactsList = useSelector(state => {
+    console.log(state);
+    return state.contactsList;
+  })
   const dataToInsert = contacts.map(contact => {
     return (
       <li className="contact-item" id={contact.id} key={contact.id}>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Form = ({ addContact }) => {
@@ -14,6 +15,8 @@ const Form = ({ addContact }) => {
   const handleChangeInput = e => {
     mapState[e.target.name](e.target.value);
   };
+
+  const contacts = useSelector(state => console.log(state))
 
   const onSubmit = e => {
     e.preventDefault();
