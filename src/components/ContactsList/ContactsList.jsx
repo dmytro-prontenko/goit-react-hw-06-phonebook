@@ -1,9 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 
-const ContactsList = ({ deleteContact }) => {
-  const contacts = useSelector(state => state.phoneBook.contacts);
+const ContactsList = ({ contacts, deleteContact }) => {
+  // const contacts = useSelector(state => state.phoneBook.contacts);
 
   const dataToInsert = contacts.map(contact => {
     return (

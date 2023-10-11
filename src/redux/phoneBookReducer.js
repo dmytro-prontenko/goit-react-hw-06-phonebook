@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 const initialState = {
   contacts: [],
-  filter: null,
+  filter: '',
 };
 
 export const phoneBookReducer = (state = initialState, action) => {
@@ -16,7 +16,10 @@ export const phoneBookReducer = (state = initialState, action) => {
       if (name && number) {
         if (!contactExists) {
           toast.success(`${name} was added to contacts`);
-          return { ...state, contacts: [...state.contacts, { id: nanoid(), name, number }] };
+          return {
+            ...state,
+            contacts: [...state.contacts, { id: nanoid(), name, number }],
+          };
         } else {
           toast.error(`${name} is already exist in contacts`);
         }
@@ -24,10 +27,15 @@ export const phoneBookReducer = (state = initialState, action) => {
       break;
     }
     case 'phoneBook/deleteContact': {
-      return { ...state, contacts: state.contacts.filter(contact => contact.id !== action.payload) };
+      return {
+        ...state,
+        contacts: state.contacts.filter(
+          contact => contact.id !== action.payload
+        ),
+      };
     }
     case 'phoneBook/changeFilter': {
-      break;
+      return { ...state, filter: action.payload };
     }
 
     default:

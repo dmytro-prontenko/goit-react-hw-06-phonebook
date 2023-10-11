@@ -8,10 +8,8 @@ const App = () => {
   const contacts = useSelector(state => state.phoneBook.contacts);
   const filter = useSelector(state => state.phoneBook.filter);
   const dispatch = useDispatch();
+  // console.log(filter)
 
-  const mapState = {
-    // filter: setFilter,
-  };
 
   // useEffect(()=>{
   //   const contactsFromLocal = JSON.parse(window.localStorage.getItem("contacts"))
@@ -27,8 +25,7 @@ const App = () => {
   // },[contacts])
 
   const handleChangeInput = e => {
-    const { name, value } = e.target;
-    mapState[name](value);
+    dispatch({type:'phoneBook/changeFilter', payload:e.target.value})
   };
 
   const handleAddContact = ({ name, number }) => {
@@ -37,16 +34,15 @@ const App = () => {
 
   const handleDeleteContact = id => {
     dispatch({ type: 'phoneBook/deleteContact', payload: id });
-    // setContacts(prev => prev.filter(contact => contact.id !== id));
   };
 
-  // const filteredContacts = () => {
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filter.toLowerCase())
-  //   );
-  // };
+  const filteredContacts = () => {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
 
-  // const filteredData = filteredContacts();
+  const filteredData = filteredContacts();
 
   return (
     <div className="wrapper">
@@ -57,7 +53,7 @@ const App = () => {
           <h2>Contacts</h2>
           <Filter onFilterChange={handleChangeInput} filterValue={filter} />
           <ContactsList
-            // contacts={filteredData}
+            contacts={filteredData}
             filterValue={filter}
             deleteContact={handleDeleteContact}
           />
