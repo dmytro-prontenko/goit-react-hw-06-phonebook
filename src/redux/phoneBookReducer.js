@@ -15,7 +15,6 @@ export const phoneBookReducer = (state = initialState, action) => {
       );
       if (name && number) {
         if (!contactExists) {
-          // setContacts(prev => [...prev, { id: nanoid(), name, number }]);
           toast.success(`${name} was added to contacts`);
           return { ...state, contacts: [...state.contacts, { id: nanoid(), name, number }] };
         } else {
@@ -25,7 +24,7 @@ export const phoneBookReducer = (state = initialState, action) => {
       break;
     }
     case 'phoneBook/deleteContact': {
-      return { ...state.filter(contact => contact.id !== action.payload) };
+      return { ...state, contacts: state.contacts.filter(contact => contact.id !== action.payload) };
     }
     case 'phoneBook/changeFilter': {
       break;

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ContactsList from './ContactsList/ContactsList';
 import Filter from './Filter/Filter';
 import Form from './Form/Form';
-import { nanoid } from 'nanoid';
-import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {
