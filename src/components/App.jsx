@@ -3,13 +3,19 @@ import ContactsList from './ContactsList/ContactsList';
 import Filter from './Filter/Filter';
 import Form from './Form/Form';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  addContact,
+  changeFilter,
+  deleteContact,
+} from 'redux/phoneBookReducer';
+import { toast } from 'react-toastify';
+import { nanoid } from 'nanoid';
 
 const App = () => {
   const contacts = useSelector(state => state.phoneBook.contacts);
   const filter = useSelector(state => state.phoneBook.filter);
   const dispatch = useDispatch();
   // console.log(filter)
-
 
   // useEffect(()=>{
   //   const contactsFromLocal = JSON.parse(window.localStorage.getItem("contacts"))
@@ -25,15 +31,27 @@ const App = () => {
   // },[contacts])
 
   const handleChangeInput = e => {
-    dispatch({type:'phoneBook/changeFilter', payload:e.target.value})
+    // dispatch({type:'phoneBook/changeFilter', payload:e.target.value})
+    dispatch(changeFilter(e.target.value));
   };
 
   const handleAddContact = ({ name, number }) => {
-    dispatch({ type: 'phoneBook/addContact', payload: { name, number } });
+    const contactExists = contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase());
+
+    if (name && number) {
+      if (!contactExists) {
+        toast.success(`${name} was added to contacts`);
+        // dispatch({ type: 'phoneBook/addContact', payload: { name, number } });
+        dispatch(addContact({ id: nanoid(), name, number }));
+      } else {
+        toast.error(`${name} is already exist in contacts`);
+      }
+    }
   };
 
   const handleDeleteContact = id => {
-    dispatch({ type: 'phoneBook/deleteContact', payload: id });
+    // dispatch({ type: 'phoneBook/deleteContact', payload: id });
+    dispatch(deleteContact(id));
   };
 
   const filteredContacts = () => {
