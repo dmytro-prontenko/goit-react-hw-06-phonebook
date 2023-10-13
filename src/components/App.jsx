@@ -15,7 +15,6 @@ const App = () => {
   const contacts = useSelector(state => state.phoneBook.contacts);
   const filter = useSelector(state => state.phoneBook.filter);
   const dispatch = useDispatch();
-  // console.log(filter)
 
   // useEffect(()=>{
   //   const contactsFromLocal = JSON.parse(window.localStorage.getItem("contacts"))
